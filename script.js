@@ -2661,7 +2661,7 @@ zoommeeting:"online meeting using zoom",
 zoomspeed:"speed of zooming",
 zoomview:"enlarged view"
 };
-const wordContainer = document.getElementById("wordContainer");
+const dictionary = document.getElementById("wordContainer");
 const alphabetDiv = document.getElementById("alphabetButtons");
 const searchInput = document.getElementById("searchBar");
 const totalWords = Object.keys(dictionary).length;
@@ -2671,7 +2671,7 @@ function displayWords(wordsArray) {
     wordContainer.innerHTML = "";
 
     if (wordsArray.length === 0) {
-        wordContainer.innerHTML = "<p>No words found.</p>";
+        dictionary.innerHTML = "<p>No words found.</p>";
         return;
     }
 
@@ -2679,7 +2679,7 @@ function displayWords(wordsArray) {
         let card = document.createElement("div");
         card.className = "word-card";
         card.innerHTML = `<h3>${word}</h3><p>${dictionary[word]}</p>`;
-        wordContainer.appendChild(card);
+        dictionary.appendChild(card);
     });
 }
 
