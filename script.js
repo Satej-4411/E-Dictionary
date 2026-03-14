@@ -1,3 +1,8 @@
+const wordContainer = document.getElementById("wordContainer");
+const alphabetDiv = document.getElementById("alphabetButtons");
+const searchInput = document.getElementById("searchBar");
+
+
 const dictionary = {
 abandon:"to leave something completely",
 ability:"the power or skill to do something",
@@ -2661,9 +2666,7 @@ zoommeeting:"online meeting using zoom",
 zoomspeed:"speed of zooming",
 zoomview:"enlarged view"
 };
-const dictionary = document.getElementById("wordContainer");
-const alphabetDiv = document.getElementById("alphabetButtons");
-const searchInput = document.getElementById("searchBar");
+
 const totalWords = Object.keys(dictionary).length;
 document.getElementById("wordCount").textContent = totalWords;
 
@@ -2671,7 +2674,7 @@ function displayWords(wordsArray) {
     wordContainer.innerHTML = "";
 
     if (wordsArray.length === 0) {
-        dictionary.innerHTML = "<p>No words found.</p>";
+        wordContainer.innerHTML = "<p>No words found.</p>";
         return;
     }
 
@@ -2679,33 +2682,41 @@ function displayWords(wordsArray) {
         let card = document.createElement("div");
         card.className = "word-card";
         card.innerHTML = `<h3>${word}</h3><p>${dictionary[word]}</p>`;
-        dictionary.appendChild(card);
+        wordContainer.appendChild(card);
     });
 }
 
 function searchWord() {
     let value = searchInput.value.toLowerCase();
+
     let filtered = Object.keys(dictionary)
-        .filter(word => word.toLowerCase().includes(value))
+        .filter(word => word.includes(value))
         .sort();
+
     displayWords(filtered);
 }
 
 function filterByLetter(letter) {
     searchInput.value = "";
+
     let filtered = Object.keys(dictionary)
-        .filter(word => word.startsWith(letter))
+        .filter(word => word.startsWith(letter.toLowerCase()))
         .sort();
+
     displayWords(filtered);
 }
 
 searchInput.addEventListener("input", searchWord);
 
+/* CREATE A-Z BUTTONS */
 for(let i = 65; i <= 90; i++) {
     let letter = String.fromCharCode(i);
+
     let btn = document.createElement("button");
     btn.innerText = letter;
+
     btn.onclick = () => filterByLetter(letter);
+
     alphabetDiv.appendChild(btn);
 }
 
